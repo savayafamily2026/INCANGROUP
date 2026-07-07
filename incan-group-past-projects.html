@@ -641,6 +641,47 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   justify-content: flex-end;
   gap: 20px;
 }
+
+/* ─── MOBILE IMPROVEMENTS ─────────────────────────────────────── */
+@media(max-width:768px){
+  /* Filter bar — horizontal scroll */
+  .filter-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .filter-inner{display:flex;flex-wrap:nowrap;gap:0;min-width:max-content;padding:0 20px;}
+  .filter-tab{flex-shrink:0;white-space:nowrap;}
+  /* Feature card span */
+  .project-card[style*="grid-column"]{grid-column:1/-1!important;}
+  /* Aspen section */
+  .aspen-group{padding:20px;}
+  .aspen-group-title{font-size:24px;}
+  /* Hospitality */
+  .hosp-feature{min-height:300px;}
+  /* Cards */
+  .card-title{font-size:18px;}
+  .card-desc{display:none;}
+  /* Page hero */
+  .page-hero-heading{font-size:38px;}
+  /* Statement */
+  .statement-quote{font-size:22px;}
+}
+
+@media(max-width:480px){
+  .page-hero{padding:120px 0 48px;}
+  .page-hero-heading{font-size:30px;}
+  .page-hero-sub{font-size:13px;}
+  .page-hero-stats{gap:20px;}
+  .page-hero-stat-num{font-size:22px;}
+  .page-hero-stat{border-right:none!important;padding-right:0!important;}
+  .section-inner,.filter-inner,.page-hero-inner,.statement-inner{padding:0 16px;}
+  .category-heading{font-size:28px;}
+  .project-grid{gap:16px;}
+  .card-title{font-size:16px;}
+  .card-meta{flex-wrap:wrap;gap:10px;}
+  .hosp-feature-title{font-size:22px;}
+  .hosp-feature-desc{font-size:13px;}
+  .statement-quote{font-size:18px;line-height:1.5;}
+  .footer-brand-name{font-size:22px;}
+}
+
 </style>
 </head>
 <body>

@@ -1363,6 +1363,40 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   justify-content: flex-end;
   gap: 20px;
 }
+
+/* ─── MOBILE IMPROVEMENTS ─────────────────────────────────────── */
+@media(max-width:768px){
+  /* Feature section */
+  .ap-feature-grid{grid-template-columns:1fr!important;gap:0!important;}
+  .ap-feature-img-wrap{aspect-ratio:4/3;}
+  .ap-feature-body{padding:32px 24px;}
+  .ap-feature-title{font-size:28px;}
+  /* Project detail list */
+  .ap-detail-grid{grid-template-columns:1fr!important;}
+  .ap-detail-col{padding:0!important;}
+  /* Geo section */
+  .ap-geo-num{font-size:36px;}
+  /* Project tags wrap */
+  .ap-tags{flex-wrap:wrap;}
+}
+
+@media(max-width:480px){
+  .ap-hero-headline{font-size:36px;}
+  .ap-hero-stat-num{font-size:22px;}
+  .ap-hero-stats{flex-direction:column;gap:16px;padding-top:20px;}
+  .ap-hero-stat{border-right:none;padding-right:0;margin-right:0;}
+  .ap-carousel-heading{font-size:28px;}
+  .ap-slide-title{font-size:28px;}
+  .ap-slide-content{padding:0 16px 80px;}
+  .ap-carousel-header{padding:0 16px 32px;}
+  .ap-carousel-ui{padding:0 16px 24px;}
+  .section-inner{padding:0 16px;}
+  .ap-feature-body{padding:24px 16px;}
+  .ap-feature-title{font-size:24px;}
+  /* Footer */
+  .footer-brand-name{font-size:22px;}
+}
+
 </style>
 </head>
 <body>

@@ -1499,6 +1499,71 @@ a.enquiry-contact-value:hover { color: var(--accent-bronze-lt); }
   .cmap-bar{padding:14px 24px;}
 }
 
+
+/* ─── MOBILE IMPROVEMENTS ─────────────────────────────────────── */
+@media(max-width:768px){
+  /* Hero tighten */
+  .hero-pills{flex-wrap:wrap;gap:8px;}
+  .hero-pill{font-size:9px;padding:9px 14px;}
+  /* Active grid footer stack */
+  .active-grid-footer{flex-direction:column;align-items:flex-start;gap:16px;}
+  .active-grid-note{font-size:10px;}
+  /* Active cards — keep 2-col at 768, collapse further at 480 below */
+  /* Featured section */
+  .featured-ctas{flex-direction:column;align-items:flex-start;gap:16px;}
+  .data-item .data-label{font-size:8px;}
+  /* Platforms */
+  .platform-dev,.platform-port{min-height:400px;}
+  /* Presence */
+  .stat-row{flex-wrap:wrap;}
+  .stat-item{min-width:140px;}
+  /* Canada map bar */
+  .cmap-bar{flex-wrap:wrap;gap:10px;}
+  .cmap-hint{display:none;}
+  .cmap-legend{flex-wrap:wrap;gap:16px;}
+  /* Canada map intro */
+  .cmap-intro{padding:48px 20px 32px;}
+  .cmap-intro-h{font-size:30px;}
+  /* Canada map — make popup invisible on touch/mobile */
+  .cmap-card{display:none;}
+}
+
+@media(max-width:480px){
+  /* Section padding */
+  .section-intro,.section-pillars,.section-featured,.section-active-grid,
+  .section-canada-interactive,.section-past-preview,.section-presence,
+  .section-portfolio{padding:64px 0;}
+  /* Hero */
+  .hero-headline{font-size:36px;line-height:1.0;}
+  .hero-subhead{font-size:14px;max-width:280px;}
+  .hero-pills{gap:6px;}
+  .hero-pill{font-size:8px;padding:8px 12px;}
+  /* Intro */
+  .intro-lead{font-size:18px;}
+  /* Platforms */
+  .platform-dev .platform-title,.platform-port .platform-title{font-size:32px;}
+  .platform-dev .platform-content,.platform-port .platform-content{padding:32px 20px;}
+  /* Active cards — single column */
+  .active-cards{grid-template-columns:1fr;}
+  .active-card{height:220px;}
+  /* Headings */
+  .active-grid-heading{font-size:28px;}
+  .presence-heading{font-size:26px;}
+  /* Stat row */
+  .stat-row{flex-direction:column;gap:20px;}
+  .stat-item{border-right:none;padding-right:0;}
+  /* Portfolio heading */
+  .portfolio-heading{font-size:28px;}
+  /* Featured */
+  .featured-headline{font-size:28px;}
+  /* Canada map */
+  .cmap-intro-h{font-size:26px;}
+  .cmap-intro-body{font-size:13px;}
+  .cmap-bar{padding:12px 16px;}
+  /* Footer */
+  .footer-brand-name{font-size:22px;}
+}
+
 </style>
 </head>
 <body>
