@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incan Group · Built to Hold.</title>
+<meta name="description" content="A privately held Canadian real estate development company — developing, building, and holding income-producing assets across Alberta and Ontario.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --bg:          #F4F3EF;   /* warm neutral */
+  --bg-card:     #FBFAF7;
+  --bg-stone:    #ECEAE4;
+  --bg-dark:     #14202B;   /* deep slate */
+  --bg-dark-2:   #0E1720;
+
+  --ink:         #17202A;
+  --ink-2:       #46555F;
+  --ink-3:       #8A96A0;
+  --ink-inv:     #F4F3EF;
+
+  --slate:       #35597E;   /* accent */
+  --slate-lt:    #5A7FA3;
+  --slate-deep:  #24384B;
+
+  --line:        rgba(23,32,42,0.10);
+  --line-inv:    rgba(244,243,239,0.14);
+
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  --r-lg: 28px;
+  --r-md: 18px;
+  --r-sm: 12px;
+
+  --maxw: 1240px;
+  --pad: 64px;
+}
+
+/* ─── LAYOUT UTIL ─────────────────────────────────────────── */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+.eyebrow {
+  font: 600 11px/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: inline-block;
+}
+.eyebrow.inv { color: var(--slate-lt); }
+
+h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 13px/1 var(--font-body);
+  letter-spacing: 0.01em;
+  padding: 16px 28px;
+  border-radius: 100px;
+  transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--slate-deep); color: var(--ink-inv); }
+.btn-primary:hover { background: var(--slate); box-shadow: 0 8px 24px rgba(36,56,75,0.25); }
+.btn-light { background: #fff; color: var(--ink); box-shadow: 0 2px 14px rgba(0,0,0,0.08); }
+.btn-light:hover { box-shadow: 0 8px 26px rgba(0,0,0,0.14); }
+.btn-ghost { border: 1.5px solid rgba(244,243,239,0.55); color: var(--ink-inv); }
+.btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.06); }
+.btn-arrow { transition: transform .2s ease; }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+.fade { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.fade.in { opacity: 1; transform: none; }
+
+/* ─── NAV ─────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 76px; transition: background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease;
+}
+.nav.scrolled { background: rgba(244,243,239,0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 100%;
+  display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font: 700 19px/1 var(--font-display); letter-spacing: 0.04em; color: #fff; transition: color .3s ease; }
+.nav.scrolled .nav-logo { color: var(--ink); }
+.nav-links { display: flex; align-items: center; gap: 38px; }
+.nav-link { font: 500 14px/1 var(--font-body); color: rgba(255,255,255,0.85); transition: color .2s ease; position: relative; }
+.nav.scrolled .nav-link { color: var(--ink-2); }
+.nav-link:hover { color: #fff; }
+.nav.scrolled .nav-link:hover { color: var(--slate); }
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.nav-cta {
+  font: 600 13px/1 var(--font-body);
+  padding: 11px 22px; border-radius: 100px;
+  border: 1.5px solid rgba(255,255,255,0.45); color: #fff; transition: all .25s ease;
+}
+.nav.scrolled .nav-cta { border-color: var(--slate-deep); color: var(--slate-deep); }
+.nav-cta:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.nav.scrolled .nav-cta:hover { background: var(--slate-deep); color: #fff; border-color: var(--slate-deep); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: background .3s ease; }
+.nav.scrolled .hamburger span { background: var(--ink); }
+
+/* ─── 1. HERO ─────────────────────────────────────────────── */
+.hero { position: relative; min-height: 92vh; display: flex; align-items: center;
+  padding: 120px 0 180px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; animation: slowZoom 26s ease-in-out infinite alternate; }
+@keyframes slowZoom { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+.hero-bg::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(14,23,32,0.82) 0%, rgba(14,23,32,0.55) 42%, rgba(14,23,32,0.15) 100%); }
+.hero-inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); width: 100%; }
+.hero-eyebrow { color: var(--slate-lt); margin-bottom: 22px; }
+.hero h1 { font-size: clamp(44px, 6.2vw, 86px); line-height: 1.02; color: #fff; max-width: 15ch; margin-bottom: 26px; font-weight: 800; }
+.hero h1 .thin { font-weight: 400; color: rgba(244,243,239,0.62); }
+.hero-sub { font: 400 19px/1.6 var(--font-body); color: rgba(244,243,239,0.78); max-width: 46ch; margin-bottom: 40px; }
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Floating capability bar */
+.capbar { position: relative; z-index: 3; max-width: var(--maxw); margin: -92px auto 0; padding: 0 var(--pad); }
+.capbar-inner {
+  background: var(--bg-card); border-radius: var(--r-lg);
+  box-shadow: 0 24px 60px rgba(20,32,43,0.16), 0 2px 0 rgba(255,255,255,0.6) inset;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+}
+.cap { display: block; padding: 30px 30px; position: relative; transition: background .25s ease; }
+.cap + .cap { border-left: 1px solid var(--line); }
+.cap:hover { background: #fff; }
+.cap-ico { width: 40px; height: 40px; border-radius: 11px; background: rgba(53,89,126,0.10);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--slate); }
+.cap-ico svg { width: 20px; height: 20px; }
+.cap-name { font: 700 16px/1 var(--font-display); color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+.cap-desc { font: 400 13px/1.5 var(--font-body); color: var(--ink-3); }
+.cap-arrow { position: absolute; top: 28px; right: 28px; color: var(--ink-3); opacity: 0; transform: translateX(-4px);
+  transition: opacity .25s ease, transform .25s ease; }
+.cap:hover .cap-arrow { opacity: 1; transform: none; color: var(--slate); }
+
+/* ─── 2. METRICS ──────────────────────────────────────────── */
+.metrics { padding: 118px 0 108px; }
+.metrics-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 60px; }
+.metrics-head h2 { font-size: clamp(30px, 4vw, 46px); line-height: 1.08; max-width: 16ch; }
+.metrics-head p { font: 400 16px/1.7 var(--font-body); color: var(--ink-2); max-width: 40ch; }
+.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.metric { border-top: 2px solid var(--slate); padding-top: 24px; }
+.metric-num { font: 800 clamp(46px, 5.5vw, 68px)/1 var(--font-display); color: var(--ink); letter-spacing: -0.03em; display: flex; align-items: baseline; }
+.metric-num .u { font-size: 0.5em; font-weight: 700; color: var(--slate); margin-left: 2px; }
+.metric-label { font: 500 14px/1.5 var(--font-body); color: var(--ink-2); margin-top: 14px; }
+
+/* ─── 3. SERVICES ─────────────────────────────────────────── */
+.services { padding: 108px 0; background: var(--bg-stone); }
+.services-head { text-align: center; max-width: 620px; margin: 0 auto 68px; }
+.services-head h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1.06; margin: 18px 0 16px; }
+.services-head p { font: 400 17px/1.7 var(--font-body); color: var(--ink-2); }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+.service { text-align: center; }
+.service-media { width: 176px; height: 176px; border-radius: 50%; overflow: hidden; margin: 0 auto 26px;
+  box-shadow: 0 16px 40px rgba(20,32,43,0.14); position: relative; }
+.service-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.service:hover .service-media img { transform: scale(1.07); }
+.service-media::after { content: ''; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25); }
+.service h3 { font-size: 21px; margin-bottom: 10px; }
+.service p { font: 400 14px/1.65 var(--font-body); color: var(--ink-2); max-width: 26ch; margin: 0 auto 16px; }
+.service-link { font: 600 12px/1 var(--font-body); letter-spacing: 0.04em; color: var(--slate); text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 7px; }
+.service-link .a { transition: transform .2s ease; }
+.service:hover .service-link .a { transform: translateX(4px); }
+.services-cta { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 64px; }
+
+/* ─── 4. FEATURED PROJECTS ───────────────────────────────── */
+.projects { padding: 116px 0; }
+.projects-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 44px; }
+.projects-head h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1.06; }
+.projects-head .link { font: 600 14px/1 var(--font-body); color: var(--slate); display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.projects-head .link .a { transition: transform .2s ease; }
+.projects-head .link:hover .a { transform: translateX(4px); }
+.proj-grid { display: grid; grid-template-columns: 1.6fr 1fr; grid-template-rows: auto auto; gap: 22px; }
+.proj { position: relative; border-radius: var(--r-md); overflow: hidden; display: block; min-height: 260px; }
+.proj.feature { grid-row: span 2; min-height: 540px; }
+.proj img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+.proj:hover img { transform: scale(1.05); }
+.proj::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,23,32,0.9) 0%, rgba(14,23,32,0.25) 55%, transparent 100%); }
+.proj-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 26px 28px; }
+.proj-tag { font: 600 10px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate-lt); margin-bottom: 10px; display: inline-block; }
+.proj h3 { color: #fff; font-size: 24px; margin-bottom: 5px; }
+.proj.feature h3 { font-size: 32px; }
+.proj-loc { font: 400 12px/1 var(--font-body); color: rgba(244,243,239,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ─── 5. WHY INCAN ───────────────────────────────────────── */
+.why { padding: 116px 0; background: var(--bg-dark); color: var(--ink-inv); }
+.why-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
+.why-intro h2 { color: #fff; font-size: clamp(30px, 4vw, 46px); line-height: 1.08; margin: 20px 0 20px; }
+.why-intro p { font: 400 16px/1.75 var(--font-body); color: rgba(244,243,239,0.62); max-width: 40ch; margin-bottom: 32px; }
+.why-list { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 48px; }
+.why-item { padding-top: 26px; border-top: 1px solid var(--line-inv); }
+.why-item .n { font: 700 13px/1 var(--font-display); color: var(--slate-lt); margin-bottom: 16px; display: block; }
+.why-item h4 { font: 600 20px/1.2 var(--font-display); color: #fff; margin-bottom: 12px; letter-spacing: -0.01em; }
+.why-item p { font: 400 14px/1.7 var(--font-body); color: rgba(244,243,239,0.55); }
+
+/* ─── 6. CONTACT CTA ─────────────────────────────────────── */
+.cta { padding: 120px 0; }
+.cta-card { background: var(--bg-card); border-radius: var(--r-lg); border: 1px solid var(--line);
+  padding: 76px 72px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center;
+  box-shadow: 0 20px 50px rgba(20,32,43,0.06); }
+.cta-card h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1.06; margin: 16px 0 18px; }
+.cta-card p { font: 400 17px/1.7 var(--font-body); color: var(--ink-2); max-width: 44ch; margin-bottom: 34px; }
+.cta-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.cta-aside { border-left: 1px solid var(--line); padding-left: 56px; display: flex; flex-direction: column; gap: 30px; }
+.cta-aud { }
+.cta-aud .l { font: 600 11px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); margin-bottom: 10px; display: block; }
+.cta-aud .v { font: 400 15px/1.6 var(--font-body); color: var(--ink-2); }
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.footer { background: var(--bg-dark-2); color: var(--ink-inv); padding: 84px 0 30px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid var(--line-inv); }
+.footer-logo { font: 700 20px/1 var(--font-display); letter-spacing: 0.04em; color: #fff; margin-bottom: 14px; display: block; }
+.footer-tag { font: 400 14px/1.6 var(--font-body); color: rgba(244,243,239,0.45); max-width: 30ch; }
+.footer-col h5 { font: 600 11px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,243,239,0.4); margin-bottom: 20px; }
+.footer-col a, .footer-col span { font: 400 14px/1 var(--font-body); color: rgba(244,243,239,0.62); display: block; margin-bottom: 13px; transition: color .2s ease; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { padding-top: 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.footer-bottom span, .footer-bottom a { font: 400 12px/1 var(--font-body); color: rgba(244,243,239,0.35); }
+.footer-legal { display: flex; gap: 22px; }
+.footer-legal a:hover { color: rgba(244,243,239,0.7); }
+
+/* ─── MOBILE NAV ─────────────────────────────────────────── */
+.mnav { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); padding: 28px 24px 40px;
+  display: flex; flex-direction: column; opacity: 0; pointer-events: none; transform: translateY(12px); transition: all .3s ease; }
+.mnav.open { opacity: 1; pointer-events: all; transform: none; }
+.mnav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 44px; }
+.mnav-top .nav-logo { color: #fff; }
+.mnav-close { font-size: 30px; color: rgba(244,243,239,0.6); line-height: 1; }
+.mnav a.m-link { font: 600 30px/1.3 var(--font-display); color: rgba(244,243,239,0.9); padding: 12px 0; border-bottom: 1px solid var(--line-inv); }
+.mnav-foot { margin-top: auto; padding-top: 26px; display: flex; flex-direction: column; gap: 8px; }
+.mnav-foot a, .mnav-foot span { font: 400 14px/1.5 var(--font-body); color: rgba(244,243,239,0.5); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --pad: 40px; }
+  .capbar-inner { grid-template-columns: 1fr 1fr; }
+  .cap:nth-child(3) { border-left: none; border-top: 1px solid var(--line); }
+  .cap:nth-child(4) { border-top: 1px solid var(--line); }
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 48px 30px; }
+  .why-grid { grid-template-columns: 1fr; gap: 44px; }
+  .proj-grid { grid-template-columns: 1fr 1fr; }
+  .proj.feature { grid-row: auto; grid-column: 1 / -1; min-height: 340px; }
+  .cta-card { grid-template-columns: 1fr; gap: 40px; padding: 56px 44px; }
+  .cta-aside { border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 36px; flex-direction: row; flex-wrap: wrap; gap: 30px 48px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  :root { --pad: 22px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { min-height: 88vh; padding: 110px 0 150px; }
+  .hero h1 { font-size: 42px; }
+  .capbar { margin-top: -80px; }
+  .capbar-inner { grid-template-columns: 1fr; }
+  .cap + .cap { border-left: none; border-top: 1px solid var(--line); }
+  .cap:nth-child(3), .cap:nth-child(4) { border-top: 1px solid var(--line); }
+  .metrics, .services, .projects, .why, .cta { padding: 74px 0; }
+  .metrics-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: 34px 20px; }
+  .services-grid { grid-template-columns: 1fr; gap: 44px; }
+  .projects-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .why-list { grid-template-columns: 1fr; gap: 30px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index-v2.html" class="nav-logo">INCAN GROUP</a>
+    <div class="nav-links">
+      <a href="active-projects-v2.html" class="nav-link">Active Projects</a>
+      <a href="portfolio-v2.html" class="nav-link">Portfolio</a>
+      <a href="#services" class="nav-link">What We Do</a>
+      <a href="#why" class="nav-link">Why Incan</a>
+    </div>
+    <div class="nav-right">
+      <a href="contact-v2.html" class="nav-cta">Contact</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mnav" id="mnav">
+  <div class="mnav-top">
+    <span class="nav-logo">INCAN GROUP</span>
+    <button class="mnav-close" id="mnavClose">&#10005;</button>
+  </div>
+  <a class="m-link" href="active-projects-v2.html">Active Projects</a>
+  <a class="m-link" href="portfolio-v2.html">Portfolio</a>
+  <a class="m-link" href="#services" onclick="closeMnav()">What We Do</a>
+  <a class="m-link" href="#why" onclick="closeMnav()">Why Incan</a>
+  <a class="m-link" href="contact-v2.html">Contact</a>
+  <div class="mnav-foot">
+    <a href="mailto:info@incangroup.com">info@incangroup.com</a>
+    <span>+1 780-715-7158 · Calgary, Alberta</span>
+  </div>
+</div>
+
+<!-- ─── 1. HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=2400&q=85&auto=format&fit=crop" alt="Modern development">
+  </div>
+  <div class="hero-inner">
+    <span class="eyebrow hero-eyebrow">Canadian Real Estate · Alberta &amp; Ontario</span>
+    <h1>Built to hold.<br><span class="thin">Developed to last.</span></h1>
+    <p class="hero-sub">A privately held Canadian real estate company that develops, builds, and holds income-producing assets across Alberta and Ontario — long-term, by design.</p>
+    <div class="hero-ctas">
+      <a href="active-projects-v2.html" class="btn btn-light">View Projects <span class="btn-arrow">&#8594;</span></a>
+      <a href="contact-v2.html" class="btn btn-ghost">Contact Incan</a>
+    </div>
+  </div>
+</section>
+
+<!-- Floating capability bar -->
+<div class="capbar">
+  <div class="capbar-inner fade">
+    <a href="#services" class="cap">
+      <div class="cap-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+      <div class="cap-name">Development</div>
+      <div class="cap-desc">Residential, commercial &amp; mixed-use, ground-up.</div>
+      <span class="cap-arrow">&#8594;</span>
+    </a>
+    <a href="#why" class="cap">
+      <div class="cap-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18M7 15l4-5 3 3 5-7"/></svg></div>
+      <div class="cap-name">Investment</div>
+      <div class="cap-desc">Assets acquired and held for long-term yield.</div>
+      <span class="cap-arrow">&#8594;</span>
+    </a>
+    <a href="#services" class="cap">
+      <div class="cap-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20h20M4 20V9l8-5 8 5v11M9 20v-5h6v5"/></svg></div>
+      <div class="cap-name">Construction</div>
+      <div class="cap-desc">In-house delivery from permit to occupancy.</div>
+      <span class="cap-arrow">&#8594;</span>
+    </a>
+    <a href="portfolio-v2.html" class="cap">
+      <div class="cap-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13M3 12h18M8 21v-5h8v5"/></svg></div>
+      <div class="cap-name">Hospitality</div>
+      <div class="cap-desc">Owner-operated hospitality &amp; commercial.</div>
+      <span class="cap-arrow">&#8594;</span>
+    </a>
+  </div>
+</div>
+
+<!-- ─── 2. METRICS ──────────────────────────────────────────── -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metrics-head fade">
+      <h2>Two decades of building — and holding — across Canada.</h2>
+      <p>We build assets we intend to keep, then hold them through cycles. The record is deliberate, not opportunistic.</p>
+    </div>
+    <div class="metrics-grid fade">
+      <div class="metric">
+        <div class="metric-num"><span class="count" data-target="40">0</span><span class="u">+</span></div>
+        <div class="metric-label">Custom homes delivered</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num"><span class="count" data-target="100">0</span><span class="u">K+</span></div>
+        <div class="metric-label">Sq ft commercial developed</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num"><span class="count" data-target="18">0</span></div>
+        <div class="metric-label">Years combined expertise</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num"><span class="count" data-target="6">0</span></div>
+        <div class="metric-label">Active developments</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 3. SERVICES ─────────────────────────────────────────── -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="services-head fade">
+      <span class="eyebrow">What We Do</span>
+      <h2>One integrated firm, four disciplines.</h2>
+      <p>Founded in 2018 and owner-operated, Incan controls every stage — architecture, engineering, construction management, development and sales — so quality and accountability never leave the building.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service fade">
+        <div class="service-media"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80&auto=format&fit=crop" alt="Development"></div>
+        <h3>Development</h3>
+        <p>Ground-up residential, commercial and mixed-use — delivered across product types and scale, from raw land to finished asset.</p>
+      </div>
+      <div class="service fade">
+        <div class="service-media"><img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=600&q=80&auto=format&fit=crop" alt="Investment"></div>
+        <h3>Investment</h3>
+        <p>A private portfolio of income-producing assets, held for yield not resale.</p>
+      </div>
+      <div class="service fade">
+        <div class="service-media"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&auto=format&fit=crop" alt="Construction"></div>
+        <h3>Construction</h3>
+        <p>Work kept in-house with trusted long-term trades — controlling cost, schedule and quality to Built Green standards.</p>
+      </div>
+      <div class="service fade">
+        <div class="service-media"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80&auto=format&fit=crop" alt="Asset management"></div>
+        <h3>Asset Management</h3>
+        <p>Owner-operated hospitality, retail and commercial — leased, maintained and held for the long term.</p>
+      </div>
+    </div>
+    <div class="services-cta fade">
+      <a href="portfolio-v2.html" class="btn btn-primary">Explore Portfolio <span class="btn-arrow">&#8594;</span></a>
+      <a href="active-projects-v2.html" class="btn btn-light">Explore Active Projects <span class="btn-arrow">&#8594;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 4. FEATURED PROJECTS ───────────────────────────────── -->
+<section class="projects">
+  <div class="wrap">
+    <div class="projects-head fade">
+      <h2>Selected work.</h2>
+      <a href="portfolio-v2.html" class="link">View full portfolio <span class="a">&#8594;</span></a>
+    </div>
+    <div class="proj-grid fade">
+      <a href="active-projects-v2.html" class="proj feature">
+        <img src="ACTIVE%20PROJECT%201%20MOCK.png" alt="Wanless Drive, Brampton">
+        <div class="proj-body">
+          <span class="proj-tag">Active · Mixed-Use</span>
+          <h3>728–736 Wanless Drive</h3>
+          <div class="proj-loc">Brampton, Ontario</div>
+        </div>
+      </a>
+      <a href="portfolio-v2.html" class="proj">
+        <img src="91 aspen.png" alt="Aspen Summit residence">
+        <div class="proj-body">
+          <span class="proj-tag">Residential</span>
+          <h3>Aspen Summit Series</h3>
+          <div class="proj-loc">Calgary, Alberta</div>
+        </div>
+      </a>
+      <a href="portfolio-v2.html" class="proj">
+        <img src="commercial property Chaparral Professional.png" alt="Chaparral Professional Centre">
+        <div class="proj-body">
+          <span class="proj-tag">Commercial</span>
+          <h3>Chaparral Professional Centre</h3>
+          <div class="proj-loc">Calgary, Alberta</div>
+        </div>
+      </a>
+      <a href="portfolio-v2.html" class="proj">
+        <img src="lamplighter motel.png" alt="Lamplighter Motel">
+        <div class="proj-body">
+          <span class="proj-tag">Hospitality</span>
+          <h3>Lamplighter Motel</h3>
+          <div class="proj-loc">Sioux Lookout, Ontario</div>
+        </div>
+      </a>
+      <a href="portfolio-v2.html" class="proj">
+        <img src="1418 2nd avenue.png" alt="1418 2nd Avenue townhouses">
+        <div class="proj-body">
+          <span class="proj-tag">Residential</span>
+          <h3>1418 2nd Ave NW</h3>
+          <div class="proj-loc">Canmore, Alberta</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 5. WHY INCAN ───────────────────────────────────────── -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-intro fade">
+        <span class="eyebrow inv">Why Incan</span>
+        <h2>We build what we intend to keep.</h2>
+        <p>Because we own what we build, our incentives are permanent. Every decision is made by the people who live with the result — for decades.</p>
+        <a href="contact-v2.html" class="btn btn-ghost">Start a conversation <span class="btn-arrow">&#8594;</span></a>
+      </div>
+      <div class="why-list fade">
+        <div class="why-item">
+          <span class="n">01</span>
+          <h4>Integrated, in-house</h4>
+          <p>Architecture, engineering, construction management and development under one roof — keeping cost, schedule and quality in our control.</p>
+        </div>
+        <div class="why-item">
+          <span class="n">02</span>
+          <h4>Founder-led ownership</h4>
+          <p>Founded in 2018 by Mahendra Patel and owner-operated. The people who build the asset answer for it — for decades.</p>
+        </div>
+        <div class="why-item">
+          <span class="n">03</span>
+          <h4>Full-cycle control</h4>
+          <p>From groundbreaking on raw land to a finished, operating asset, Incan maintains complete control at every phase.</p>
+        </div>
+        <div class="why-item">
+          <span class="n">04</span>
+          <h4>Built to last</h4>
+          <p>Long-term trade relationships and Built Green standards — assets designed for permanence, held not flipped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 6. CONTACT CTA ─────────────────────────────────────── -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-card fade">
+      <div>
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Let's build something worth holding.</h2>
+        <p>Whether you're bringing capital, land, or a partnership, we'd like to hear from you.</p>
+        <div class="cta-ctas">
+          <a href="contact-v2.html" class="btn btn-primary">Contact Incan <span class="btn-arrow">&#8594;</span></a>
+          <a href="portfolio-v2.html" class="btn btn-light">View Portfolio</a>
+        </div>
+      </div>
+      <div class="cta-aside">
+        <div class="cta-aud"><span class="l">Investors</span><span class="v">Long-hold, income-producing Canadian assets.</span></div>
+        <div class="cta-aud"><span class="l">Landowners</span><span class="v">Development partnerships in growth corridors.</span></div>
+        <div class="cta-aud"><span class="l">Partners</span><span class="v">Construction &amp; operating collaborations.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">INCAN GROUP</span>
+        <p class="footer-tag">Built to hold. A privately held Canadian real estate developer across Alberta and Ontario.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Development</h5>
+        <a href="active-projects-v2.html">Active Projects</a>
+        <a href="portfolio-v2.html">Portfolio</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#why">Why Incan</a>
+        <a href="#services">What We Do</a>
+        <a href="contact-v2.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:info@incangroup.com">info@incangroup.com</a>
+        <a href="tel:+17807157158">+1 780-715-7158</a>
+        <span>Calgary, Alberta</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Incan Group. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+// Mobile nav
+const mnav = document.getElementById('mnav');
+document.getElementById('hamburger').addEventListener('click', () => { mnav.classList.add('open'); document.body.style.overflow='hidden'; });
+function closeMnav(){ mnav.classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('mnavClose').addEventListener('click', closeMnav);
+
+// Fade in
+const obs = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }}), { threshold: 0.14 });
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// Count up
+const cObs = new IntersectionObserver((es)=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  const el = e.target, target = +el.dataset.target, dur = 1300, t0 = performance.now();
+  (function tick(now){ const p = Math.min((now-t0)/dur,1); el.textContent = Math.floor(p*target); if(p<1) requestAnimationFrame(tick); else el.textContent = target; })(performance.now());
+  cObs.unobserve(el);
+}), { threshold: 0.6 });
+document.querySelectorAll('.count').forEach(c=>cObs.observe(c));
+</script>
+</body>
+</html>
