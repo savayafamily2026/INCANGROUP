@@ -514,4 +514,26 @@ window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.
 const mnav = document.getElementById('mnav');
 document.getElementById('hamburger').addEventListener('click', () => { mnav.classList.add('open'); document.body.style.overflow='hidden'; });
 function closeMnav(){ mnav.classList.remove('open'); document.body.style.overflow=''; }
-document.getElementById('mnavClose').addEventListen
+document.getElementById('mnavClose').addEventListener('click', closeMnav);
+document.querySelectorAll('.mnav a.m-link').forEach(a=>a.addEventListener('click', closeMnav));
+
+// Fade in
+const obs = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }}), { threshold: 0.12 });
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// Filter tabs
+const tabs = document.querySelectorAll('.filter-tab');
+const cats = document.querySelectorAll('.cat');
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  tabs.forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const f = tab.dataset.filter;
+  cats.forEach(c => c.classList.toggle('hidden', !(f === 'all' || c.dataset.category === f)));
+}));
+const h = location.hash.replace('#','');
+if (['residential','commercial','hospitality'].includes(h)) {
+  const t = document.querySelector(`[data-filter="${h}"]`); if (t) t.click();
+}
+</script>
+</body>
+</html>
