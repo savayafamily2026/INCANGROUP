@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Projects · Incan Group</title>
+<meta name="description" content="Six developments under active construction across Ontario and Alberta — mixed-use commercial and residential projects in Brampton, Waterloo, Stoney Creek, Sioux Lookout, and Calgary.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── TOKENS (shared with index-v2) ───────────────────────── */
+:root {
+  --bg: #F4F3EF; --bg-card: #FBFAF7; --bg-stone: #ECEAE4; --bg-dark: #14202B; --bg-dark-2: #0E1720;
+  --ink: #17202A; --ink-2: #46555F; --ink-3: #8A96A0; --ink-inv: #F4F3EF;
+  --slate: #35597E; --slate-lt: #5A7FA3; --slate-deep: #24384B;
+  --line: rgba(23,32,42,0.10); --line-inv: rgba(244,243,239,0.14);
+  --font-display: 'Sora', sans-serif; --font-body: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+  --r-lg: 28px; --r-md: 18px; --r-sm: 12px;
+  --maxw: 1240px; --pad: 64px;
+}
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+.eyebrow { font: 600 11px/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate); display: inline-block; }
+.eyebrow.inv { color: var(--slate-lt); }
+.mono { font-family: var(--font-mono); }
+h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; font: 600 13px/1 var(--font-body); padding: 16px 28px; border-radius: 100px; transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--slate-deep); color: var(--ink-inv); }
+.btn-primary:hover { background: var(--slate); box-shadow: 0 8px 24px rgba(36,56,75,0.25); }
+.btn-light { background: #fff; color: var(--ink); box-shadow: 0 2px 14px rgba(0,0,0,0.08); }
+.btn-light:hover { box-shadow: 0 8px 26px rgba(0,0,0,0.14); }
+.btn-ghost { border: 1.5px solid rgba(244,243,239,0.55); color: var(--ink-inv); }
+.btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.06); }
+.btn-arrow { transition: transform .2s ease; }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+.fade { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.fade.in { opacity: 1; transform: none; }
+
+/* status pulse */
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--slate); flex-shrink: 0; animation: pulse 2.6s ease-in-out infinite; }
+
+/* ─── NAV ─────────────────────────────────────────────────── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 76px; transition: background .3s ease, box-shadow .3s ease; }
+.nav.solid, .nav.scrolled { background: rgba(244,243,239,0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font: 700 19px/1 var(--font-display); letter-spacing: 0.04em; color: #fff; transition: color .3s ease; }
+.nav.scrolled .nav-logo { color: var(--ink); }
+.nav-links { display: flex; align-items: center; gap: 38px; }
+.nav-link { font: 500 14px/1 var(--font-body); color: rgba(255,255,255,0.85); transition: color .2s ease; }
+.nav.scrolled .nav-link { color: var(--ink-2); }
+.nav-link:hover { color: #fff; }
+.nav.scrolled .nav-link:hover { color: var(--slate); }
+.nav-link.active { color: var(--slate-lt); }
+.nav.scrolled .nav-link.active { color: var(--slate); }
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.nav-cta { font: 600 13px/1 var(--font-body); padding: 11px 22px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.45); color: #fff; transition: all .25s ease; }
+.nav.scrolled .nav-cta { border-color: var(--slate-deep); color: var(--slate-deep); }
+.nav-cta:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.nav.scrolled .nav-cta:hover { background: var(--slate-deep); color: #fff; border-color: var(--slate-deep); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+.nav.scrolled .hamburger span { background: var(--ink); }
+
+/* ─── HERO (blueprint) ────────────────────────────────────── */
+.hero { position: relative; min-height: 78vh; background: var(--bg-dark); display: flex; align-items: flex-end; overflow: hidden; padding-top: 132px; padding-bottom: 76px; }
+.hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(90,127,163,0.20) 1px, transparent 1px); background-size: 26px 26px; }
+.hero::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(244,243,239,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(244,243,239,0.03) 1px, transparent 1px); background-size: 130px 130px; }
+.hero-glow { position: absolute; bottom: -20%; left: -10%; width: 60%; height: 80%; background: radial-gradient(circle, rgba(53,89,126,0.35) 0%, transparent 65%); filter: blur(20px); }
+.hero-inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); width: 100%; }
+.hero-refrow { display: flex; align-items: center; gap: 16px; margin-bottom: 34px; }
+.hero-ref { font: 500 10px/1 var(--font-mono); letter-spacing: 0.12em; color: rgba(244,243,239,0.4); border: 1px solid rgba(244,243,239,0.14); padding: 7px 12px; border-radius: 6px; }
+.hero-refline { flex: 1; max-width: 120px; height: 1px; background: rgba(244,243,239,0.14); }
+.hero h1 { font-size: clamp(46px, 7vw, 96px); line-height: 0.98; color: #fff; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.03em; }
+.hero p { font: 400 18px/1.6 var(--font-body); color: rgba(244,243,239,0.68); max-width: 48ch; margin-bottom: 56px; }
+.hero-stats { display: flex; gap: 0; flex-wrap: wrap; border-top: 1px solid var(--line-inv); padding-top: 34px; }
+.hstat { padding-right: 44px; margin-right: 44px; border-right: 1px solid var(--line-inv); }
+.hstat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.hstat .n { font: 800 40px/1 var(--font-display); color: #fff; letter-spacing: -0.03em; display: block; margin-bottom: 8px; }
+.hstat .l { font: 500 11px/1.3 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,243,239,0.45); }
+
+/* ─── INTRO ───────────────────────────────────────────────── */
+.intro { padding: 92px 0 84px; border-bottom: 1px solid var(--line); }
+.intro-grid { display: grid; grid-template-columns: 6fr 5fr; gap: 72px; align-items: center; }
+.intro-lead { font: 700 clamp(24px,2.8vw,32px)/1.25 var(--font-display); letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+.intro-body { font: 400 16px/1.75 var(--font-body); color: var(--ink-2); }
+.type-list { list-style: none; }
+.type-item { display: flex; align-items: center; gap: 22px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.type-item:first-child { border-top: 1px solid var(--line); }
+.type-n { font: 800 40px/1 var(--font-display); color: var(--slate); letter-spacing: -0.03em; min-width: 52px; }
+.type-name { font: 600 16px/1.3 var(--font-display); color: var(--ink); margin-bottom: 4px; }
+.type-tag { font: 500 11px/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ─── SECTION LABEL ───────────────────────────────────────── */
+.slabel { display: flex; align-items: center; gap: 18px; margin-bottom: 52px; }
+.slabel-line { flex: 1; height: 1px; background: var(--line); }
+.slabel-text { font: 600 11px/1 var(--font-body); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.slabel .mono { font-size: 11px; color: var(--slate); letter-spacing: 0.06em; }
+
+/* ─── FEATURED PROJECT SHEETS ─────────────────────────────── */
+.sheets { padding: 96px 0 40px; }
+.sheet { margin-bottom: 88px; }
+.sheet-topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px; border: 1px solid var(--line); border-bottom: none; border-radius: var(--r-md) var(--r-md) 0 0; background: var(--bg-stone); }
+.sheet-topbar .left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.sheet-code { font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--slate); }
+.sheet-sep { width: 1px; height: 14px; background: var(--line); }
+.sheet-sub { font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--ink-3); text-transform: uppercase; }
+.sheet-rev { font: 500 10px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--ink-3); }
+
+.sheet-grid { display: grid; grid-template-columns: 1.5fr 1fr; border: 1px solid var(--line); background: var(--bg-card); }
+.sheet.rev .sheet-grid { grid-template-columns: 1fr 1.5fr; }
+.sheet.rev .sheet-media { order: 2; border-left: 1px solid var(--line); border-right: none; }
+.sheet.rev .sheet-panel { order: 1; }
+
+/* media */
+.sheet-media { position: relative; overflow: hidden; border-right: 1px solid var(--line); min-height: 420px; background: var(--bg-dark); }
+.sheet-media img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: transform .7s ease; }
+.sheet:hover .sheet-media img { transform: scale(1.03); }
+.corner { position: absolute; width: 18px; height: 18px; z-index: 3; }
+.corner.tl { top: 14px; left: 14px; border-top: 1.5px solid rgba(255,255,255,0.7); border-left: 1.5px solid rgba(255,255,255,0.7); }
+.corner.tr { top: 14px; right: 14px; border-top: 1.5px solid rgba(255,255,255,0.7); border-right: 1.5px solid rgba(255,255,255,0.7); }
+.corner.bl { bottom: 14px; left: 14px; border-bottom: 1.5px solid rgba(255,255,255,0.7); border-left: 1.5px solid rgba(255,255,255,0.7); }
+.corner.br { bottom: 14px; right: 14px; border-bottom: 1.5px solid rgba(255,255,255,0.7); border-right: 1.5px solid rgba(255,255,255,0.7); }
+.media-tag { position: absolute; top: 14px; left: 42px; right: 42px; z-index: 3; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; }
+.media-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(14,23,32,0.72); backdrop-filter: blur(6px); color: #fff; font: 600 9px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; border-radius: 100px; }
+.media-ref { font: 500 9px/1 var(--font-mono); letter-spacing: 0.08em; color: rgba(255,255,255,0.6); background: rgba(14,23,32,0.5); padding: 6px 10px; border-radius: 6px; }
+.media-caption { position: absolute; bottom: 14px; left: 42px; z-index: 3; font: 500 9px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+
+/* panel */
+.sheet-panel { padding: 38px 40px; display: flex; flex-direction: column; }
+.phase { display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(53,89,126,0.4); color: var(--slate); font: 600 9px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; padding: 9px 15px; border-radius: 100px; align-self: flex-start; margin-bottom: 26px; }
+.sheet-projref { font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--slate); margin-bottom: 12px; }
+.sheet-name { font-size: clamp(26px,3vw,34px); line-height: 1.05; margin-bottom: 8px; }
+.sheet-addr { font: 500 12px/1.4 var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 24px; }
+.sheet-desc { font: 400 14px/1.7 var(--font-body); color: var(--ink-2); margin-bottom: 26px; }
+.spec { border-top: 1px solid var(--line); margin-bottom: 26px; }
+.spec-row { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.spec-k { font: 600 9px/1 var(--font-body); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); }
+.spec-v { font: 600 15px/1.3 var(--font-display); color: var(--ink); letter-spacing: -0.01em; }
+
+/* plan drawing frame */
+.plan { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; margin-top: auto; background: #fff; }
+.plan-img { position: relative; background: #fff; }
+.plan-img img { width: 100%; display: block; }
+.plan-title { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--bg-stone); }
+.plan-title .t { font: 600 9px/1 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+.plan-title .c { font: 500 9px/1 var(--font-mono); letter-spacing: 0.06em; color: var(--ink-3); }
+
+/* ─── PIPELINE SCHEDULE (dark) ────────────────────────────── */
+.schedule { background: var(--bg-dark); padding: 104px 0; }
+.sched-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
+.sched-head .eyebrow { color: var(--slate-lt); margin-bottom: 16px; }
+.sched-head h2 { color: #fff; font-size: clamp(30px,4vw,46px); line-height: 1.04; }
+.sched-head p { font: 400 15px/1.7 var(--font-body); color: rgba(244,243,239,0.5); max-width: 34ch; }
+.sched-cols, .sched-row { display: grid; grid-template-columns: 64px 1fr 220px 88px 150px; gap: 20px; align-items: center; }
+.sched-cols { padding: 0 0 12px; border-bottom: 1px solid var(--line-inv); }
+.sched-col { font: 600 9px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,243,239,0.35); }
+.sched-row { padding: 20px 0; border-bottom: 1px solid var(--line-inv); transition: background .25s ease; }
+.sched-row:hover { background: rgba(244,243,239,0.03); }
+.sched-no { font: 500 12px/1 var(--font-mono); color: var(--slate-lt); }
+.sched-name { font: 600 18px/1.2 var(--font-display); color: #fff; letter-spacing: -0.01em; margin-bottom: 3px; }
+.sched-loc { font: 400 12px/1 var(--font-body); color: rgba(244,243,239,0.4); }
+.sched-type { font: 400 13px/1.4 var(--font-body); color: rgba(244,243,239,0.62); }
+.sched-prov { font: 600 10px/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,243,239,0.55); border: 1px solid var(--line-inv); border-radius: 100px; padding: 8px 0; text-align: center; }
+.sched-status { display: inline-flex; align-items: center; gap: 8px; font: 600 9px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate-lt); }
+
+/* ─── GEO STRIP ───────────────────────────────────────────── */
+.geo { background: var(--bg-dark-2); padding: 72px 0; border-top: 1px solid var(--line-inv); }
+.geo-inner { display: flex; align-items: center; }
+.geo-item { flex: 1; display: flex; align-items: center; gap: 26px; }
+.geo-item.right { justify-content: flex-end; }
+.geo-n { font: 800 68px/1 var(--font-display); color: #fff; letter-spacing: -0.04em; }
+.geo-l .p { font: 600 11px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate-lt); margin-bottom: 7px; display: block; }
+.geo-l .d { font: 400 14px/1.45 var(--font-body); color: rgba(244,243,239,0.5); }
+.geo-center { padding: 0 64px; text-align: center; }
+.geo-center .t { font: 500 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,243,239,0.3); display: block; margin-bottom: 4px; }
+.geo-center .num { font: 800 76px/1 var(--font-display); color: rgba(244,243,239,0.1); letter-spacing: -0.04em; }
+
+/* ─── CTA ─────────────────────────────────────────────────── */
+.cta { padding: 118px 0; }
+.cta-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 72px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: center; box-shadow: 0 20px 50px rgba(20,32,43,0.06); }
+.cta-card h2 { font-size: clamp(28px,3.6vw,44px); line-height: 1.06; margin: 14px 0 16px; }
+.cta-card p { font: 400 16px/1.7 var(--font-body); color: var(--ink-2); max-width: 42ch; }
+.cta-actions { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+.footer { background: var(--bg-dark-2); color: var(--ink-inv); padding: 84px 0 30px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid var(--line-inv); }
+.footer-logo { font: 700 20px/1 var(--font-display); letter-spacing: 0.04em; color: #fff; margin-bottom: 14px; display: block; }
+.footer-tag { font: 400 14px/1.6 var(--font-body); color: rgba(244,243,239,0.45); max-width: 30ch; }
+.footer-col h5 { font: 600 11px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,243,239,0.4); margin-bottom: 20px; }
+.footer-col a, .footer-col span { font: 400 14px/1 var(--font-body); color: rgba(244,243,239,0.62); display: block; margin-bottom: 13px; transition: color .2s ease; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { padding-top: 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.footer-bottom span, .footer-bottom a { font: 400 12px/1 var(--font-body); color: rgba(244,243,239,0.35); }
+.footer-legal { display: flex; gap: 22px; }
+.footer-legal a:hover { color: rgba(244,243,239,0.7); }
+
+/* ─── MOBILE NAV ──────────────────────────────────────────── */
+.mnav { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); padding: 28px 24px 40px; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transform: translateY(12px); transition: all .3s ease; }
+.mnav.open { opacity: 1; pointer-events: all; transform: none; }
+.mnav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 44px; }
+.mnav-top .nav-logo { color: #fff; }
+.mnav-close { font-size: 30px; color: rgba(244,243,239,0.6); line-height: 1; }
+.mnav a.m-link { font: 600 30px/1.3 var(--font-display); color: rgba(244,243,239,0.9); padding: 12px 0; border-bottom: 1px solid var(--line-inv); }
+.mnav-foot { margin-top: auto; padding-top: 26px; display: flex; flex-direction: column; gap: 8px; }
+.mnav-foot a, .mnav-foot span { font: 400 14px/1.5 var(--font-body); color: rgba(244,243,239,0.5); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --pad: 40px; }
+  .intro-grid { grid-template-columns: 1fr; gap: 44px; }
+  .sheet-grid, .sheet.rev .sheet-grid { grid-template-columns: 1fr; }
+  .sheet.rev .sheet-media { order: 0; border-left: none; border-bottom: 1px solid var(--line); }
+  .sheet-media { border-right: none; border-bottom: 1px solid var(--line); min-height: 340px; }
+  .sched-cols { display: none; }
+  .sched-row { grid-template-columns: 1fr auto; gap: 8px 16px; }
+  .sched-no { grid-row: 1; }
+  .sched-type { grid-column: 1 / -1; }
+  .sched-prov, .sched-status { justify-self: start; }
+  .geo-center { padding: 0 32px; }
+  .cta-card { grid-template-columns: 1fr; gap: 36px; padding: 52px 44px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  :root { --pad: 22px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { min-height: 74vh; }
+  .hstat { padding-right: 26px; margin-right: 26px; }
+  .hstat .n { font-size: 30px; }
+  .sheet-panel { padding: 30px 24px; }
+  .geo-inner { flex-direction: column; gap: 32px; align-items: flex-start; }
+  .geo-item.right { justify-content: flex-start; }
+  .geo-center { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .schedule, .cta { padding: 64px 0; }
+  .sheets { padding: 60px 0 20px; }
+  .sheet { margin-bottom: 56px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index-v2.html" class="nav-logo">INCAN GROUP</a>
+    <div class="nav-links">
+      <a href="active-projects-v2.html" class="nav-link active">Active Projects</a>
+      <a href="portfolio-v2.html" class="nav-link">Portfolio</a>
+      <a href="index-v2.html#services" class="nav-link">What We Do</a>
+      <a href="index-v2.html#why" class="nav-link">Why Incan</a>
+    </div>
+    <div class="nav-right">
+      <a href="contact-v2.html" class="nav-cta">Contact</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mnav" id="mnav">
+  <div class="mnav-top">
+    <span class="nav-logo">INCAN GROUP</span>
+    <button class="mnav-close" id="mnavClose">&#10005;</button>
+  </div>
+  <a class="m-link" href="index-v2.html">Home</a>
+  <a class="m-link" href="active-projects-v2.html">Active Projects</a>
+  <a class="m-link" href="portfolio-v2.html">Portfolio</a>
+  <a class="m-link" href="contact-v2.html">Contact</a>
+  <div class="mnav-foot">
+    <a href="mailto:info@incangroup.com">info@incangroup.com</a>
+    <span>+1 780-715-7158 · Calgary, Alberta</span>
+  </div>
+</div>
+
+<!-- ─── HERO ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-refrow fade">
+      <span class="hero-ref">IG · PIPELINE 2026</span>
+      <span class="hero-refline"></span>
+      <span class="eyebrow inv">Currently Under Construction</span>
+    </div>
+    <h1 class="fade">Development<br>Pipeline.</h1>
+    <p class="fade">Six developments in active construction across Ontario and Alberta — mixed-use commercial and residential, each held for the long term.</p>
+    <div class="hero-stats fade">
+      <div class="hstat"><span class="n">6</span><span class="l">Active Projects</span></div>
+      <div class="hstat"><span class="n">2</span><span class="l">Provinces</span></div>
+      <div class="hstat"><span class="n">5</span><span class="l">Mixed-Use</span></div>
+      <div class="hstat"><span class="n">1</span><span class="l">Commercial</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INTRO ───────────────────────────────────────────────── -->
+<section class="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="fade">
+        <p class="intro-lead">Institutional-quality developments in Canada's fastest-growing urban corridors.</p>
+        <p class="intro-body">Every project in the active pipeline reflects deliberate site selection, architectural quality, and a long-term view on community. We don't develop speculatively — each site is backed by market analysis and structured financing before we break ground.</p>
+      </div>
+      <div class="fade">
+        <ul class="type-list">
+          <li class="type-item">
+            <span class="type-n">5</span>
+            <div><div class="type-name">Mixed-Use Commercial &amp; Residential</div><div class="type-tag">Active Construction · Ontario &amp; Alberta</div></div>
+          </li>
+          <li class="type-item">
+            <span class="type-n">1</span>
+            <div><div class="type-name">Commercial Development</div><div class="type-tag">Active Construction · Alberta</div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED SHEETS ─────────────────────────────────────── -->
+<section class="sheets">
+  <div class="wrap">
+    <div class="slabel fade">
+      <span class="slabel-text">Featured Developments</span>
+      <span class="mono">03 SHEETS</span>
+      <span class="slabel-line"></span>
+    </div>
+
+    <!-- SHEET 01 — Wanless Drive (flagship) -->
+    <div class="sheet fade">
+      <div class="sheet-topbar">
+        <div class="left">
+          <span class="sheet-code">IG-AP-01</span>
+          <span class="sheet-sep"></span>
+          <span class="sheet-sub">Mixed-Use · Flagship</span>
+        </div>
+        <span class="sheet-rev">REV C · 2026</span>
+      </div>
+      <div class="sheet-grid">
+        <div class="sheet-media">
+          <img src="ACTIVE%20PROJECT%201%20MOCK.png" alt="728–736 Wanless Drive — flagship mixed-use tower">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="media-tag">
+            <span class="media-badge"><span class="dot" style="background:#fff"></span>Under Construction</span>
+            <span class="media-ref">RENDER · A-001</span>
+          </div>
+          <span class="media-caption">Corner podium · retail at grade · residential above</span>
+        </div>
+        <div class="sheet-panel">
+          <span class="phase"><span class="dot"></span>Phase · Active Construction</span>
+          <span class="sheet-projref">PROJECT 01 / 06</span>
+          <h3 class="sheet-name">728–736 Wanless Drive</h3>
+          <div class="sheet-addr">Brampton, Ontario · Greater Toronto Area</div>
+          <p class="sheet-desc">A low-rise mixed-use infill of street-facing residences over grade-level commercial — private terraces and a restrained material palette tuned to its residential context.</p>
+          <div class="spec">
+            <div class="spec-row"><span class="spec-k">Asset Type</span><span class="spec-v">Mixed-Use</span></div>
+            <div class="spec-row"><span class="spec-k">Program</span><span class="spec-v">Retail + Residential</span></div>
+            <div class="spec-row"><span class="spec-k">Market</span><span class="spec-v">Greater Toronto Area</span></div>
+            <div class="spec-row"><span class="spec-k">Status</span><span class="spec-v">Under Construction</span></div>
+          </div>
+          <div class="plan">
+            <div class="plan-img"><img src="Floor%20plan%201.png" alt="Ground floor plan"></div>
+            <div class="plan-title"><span class="t">Ground Floor Plan — Representative</span><span class="c">DWG · FP-01</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHEET 02 — Glen Forrest (reversed) -->
+    <div class="sheet rev fade">
+      <div class="sheet-topbar">
+        <div class="left">
+          <span class="sheet-code">IG-AP-02</span>
+          <span class="sheet-sep"></span>
+          <span class="sheet-sub">Mixed-Use · Waterloo Region</span>
+        </div>
+        <span class="sheet-rev">REV B · 2026</span>
+      </div>
+      <div class="sheet-grid">
+        <div class="sheet-media">
+          <img src="ACTIVE%20PROJECT%202%20MOCK.png" alt="575 Glen Forrest Blvd — terraced mixed-use">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="media-tag">
+            <span class="media-badge"><span class="dot" style="background:#fff"></span>Under Construction</span>
+            <span class="media-ref">RENDER · A-002</span>
+          </div>
+          <span class="media-caption">Terraced massing · green roofs · corner siting</span>
+        </div>
+        <div class="sheet-panel">
+          <span class="phase"><span class="dot"></span>Phase · Active Construction</span>
+          <span class="sheet-projref">PROJECT 02 / 06</span>
+          <h3 class="sheet-name">575 Glen Forrest Blvd</h3>
+          <div class="sheet-addr">Waterloo, Ontario · Waterloo Region</div>
+          <p class="sheet-desc">A terraced mixed-use development stepping with its corner site — landscaped roof decks above, commercial and residential entries at street level in a walkable Waterloo node.</p>
+          <div class="spec">
+            <div class="spec-row"><span class="spec-k">Asset Type</span><span class="spec-v">Mixed-Use</span></div>
+            <div class="spec-row"><span class="spec-k">Program</span><span class="spec-v">Commercial + Residential</span></div>
+            <div class="spec-row"><span class="spec-k">Market</span><span class="spec-v">Waterloo Region</span></div>
+            <div class="spec-row"><span class="spec-k">Status</span><span class="spec-v">Under Construction</span></div>
+          </div>
+          <div class="plan">
+            <div class="plan-img"><img src="site%20map%203.png" alt="Site plan"></div>
+            <div class="plan-title"><span class="t">Site Plan — Representative</span><span class="c">DWG · SP-02</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHEET 03 — McLaughlin Road -->
+    <div class="sheet fade">
+      <div class="sheet-topbar">
+        <div class="left">
+          <span class="sheet-code">IG-AP-05</span>
+          <span class="sheet-sep"></span>
+          <span class="sheet-sub">Mixed-Use · Greater Toronto Area</span>
+        </div>
+        <span class="sheet-rev">REV A · 2026</span>
+      </div>
+      <div class="sheet-grid">
+        <div class="sheet-media">
+          <img src="active%20project%203%20mock.png" alt="McLaughlin Road — low-rise mixed-use residential">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="media-tag">
+            <span class="media-badge"><span class="dot" style="background:#fff"></span>Under Construction</span>
+            <span class="media-ref">RENDER · A-003</span>
+          </div>
+          <span class="media-caption">Low-rise infill · street-facing units · private terraces</span>
+        </div>
+        <div class="sheet-panel">
+          <span class="phase"><span class="dot"></span>Phase · Active Construction</span>
+          <span class="sheet-projref">PROJECT 05 / 06</span>
+          <h3 class="sheet-name">McLaughlin Road</h3>
+          <div class="sheet-addr">Brampton, Ontario · Greater Toronto Area</div>
+          <p class="sheet-desc">A twelve-storey mixed-use tower over a four-storey commercial podium in one of Brampton's highest-density growth corridors — retail and café at grade, residential above.</p>
+          <div class="spec">
+            <div class="spec-row"><span class="spec-k">Asset Type</span><span class="spec-v">Mixed-Use</span></div>
+            <div class="spec-row"><span class="spec-k">Program</span><span class="spec-v">Commercial + Residential</span></div>
+            <div class="spec-row"><span class="spec-k">Market</span><span class="spec-v">Greater Toronto Area</span></div>
+            <div class="spec-row"><span class="spec-k">Status</span><span class="spec-v">Under Construction</span></div>
+          </div>
+          <div class="plan">
+            <div class="plan-img"><img src="floor%20plan%203.png" alt="Floor plan"></div>
+            <div class="plan-title"><span class="t">Floor Plan — Representative</span><span class="c">DWG · FP-03</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PIPELINE SCHEDULE ───────────────────────────────────── -->
+<section class="schedule">
+  <div class="wrap">
+    <div class="sched-head fade">
+      <div>
+        <span class="eyebrow inv">Full Pipeline</span>
+        <h2>Six sites.<br>Under construction.</h2>
+      </div>
+      <p>The complete active development schedule across Ontario and Alberta.</p>
+    </div>
+
+    <div class="sched-cols fade">
+      <span class="sched-col">Ref</span>
+      <span class="sched-col">Project</span>
+      <span class="sched-col">Program</span>
+      <span class="sched-col">Prov.</span>
+      <span class="sched-col">Status</span>
+    </div>
+
+    <div class="sched-row fade">
+      <span class="sched-no">01</span>
+      <div><div class="sched-name">728–736 Wanless Drive</div><div class="sched-loc">Brampton · Greater Toronto Area</div></div>
+      <span class="sched-type">Mixed-Use Commercial + Residential</span>
+      <span class="sched-prov">ON</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+    <div class="sched-row fade">
+      <span class="sched-no">02</span>
+      <div><div class="sched-name">575 Glen Forrest Blvd</div><div class="sched-loc">Waterloo · Waterloo Region</div></div>
+      <span class="sched-type">Mixed-Use Commercial + Residential</span>
+      <span class="sched-prov">ON</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+    <div class="sched-row fade">
+      <span class="sched-no">03</span>
+      <div><div class="sched-name">1365 Baseline Road</div><div class="sched-loc">Stoney Creek · Hamilton Region</div></div>
+      <span class="sched-type">Mixed-Use Commercial + Residential</span>
+      <span class="sched-prov">ON</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+    <div class="sched-row fade">
+      <span class="sched-no">04</span>
+      <div><div class="sched-name">318 Nolanridge Crescent NW</div><div class="sched-loc">Calgary · Alberta</div></div>
+      <span class="sched-type">Commercial Development</span>
+      <span class="sched-prov">AB</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+    <div class="sched-row fade">
+      <span class="sched-no">05</span>
+      <div><div class="sched-name">McLaughlin Road</div><div class="sched-loc">Brampton · Greater Toronto Area</div></div>
+      <span class="sched-type">Mixed-Use Commercial + Residential</span>
+      <span class="sched-prov">ON</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+    <div class="sched-row fade">
+      <span class="sched-no">06</span>
+      <div><div class="sched-name">9 Fifth Avenue</div><div class="sched-loc">Sioux Lookout · Northern Ontario</div></div>
+      <span class="sched-type">Mixed-Use Commercial + Residential</span>
+      <span class="sched-prov">ON</span>
+      <span class="sched-status"><span class="dot"></span>Under Construction</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GEO STRIP ───────────────────────────────────────────── -->
+<div class="geo">
+  <div class="wrap">
+    <div class="geo-inner">
+      <div class="geo-item fade">
+        <span class="geo-n">5</span>
+        <div class="geo-l"><span class="p">Ontario</span><span class="d">Brampton (×2), Waterloo,<br>Stoney Creek, Sioux Lookout</span></div>
+      </div>
+      <div class="geo-center"><span class="t">Projects</span><span class="num">6</span></div>
+      <div class="geo-item right fade">
+        <span class="geo-n">1</span>
+        <div class="geo-l"><span class="p">Alberta</span><span class="d">Calgary —<br>Commercial Development</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA ─────────────────────────────────────────────────── -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-card fade">
+      <div>
+        <span class="eyebrow">Development Enquiries</span>
+        <h2>Bringing land or capital to the pipeline?</h2>
+        <p>We partner with landowners, investors, and municipalities on mixed-use development in growing Canadian corridors.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="contact-v2.html" class="btn btn-primary">Contact Incan <span class="btn-arrow">&#8594;</span></a>
+        <a href="portfolio-v2.html" class="btn btn-light">View Completed Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">INCAN GROUP</span>
+        <p class="footer-tag">Built to hold. A privately held Canadian real estate developer across Alberta and Ontario.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Development</h5>
+        <a href="active-projects-v2.html">Active Projects</a>
+        <a href="portfolio-v2.html">Portfolio</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="index-v2.html">Home</a>
+        <a href="index-v2.html#why">Why Incan</a>
+        <a href="contact-v2.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:info@incangroup.com">info@incangroup.com</a>
+        <a href="tel:+17807157158">+1 780-715-7158</a>
+        <span>Calgary, Alberta</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Incan Group. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+const mnav = document.getElementById('mnav');
+document.getElementById('hamburger').addEventListener('click', () => { mnav.classList.add('open'); document.body.style.overflow='hidden'; });
+function closeMnav(){ mnav.classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('mnavClose').addEventListener('click', closeMnav);
+document.querySelectorAll('.mnav a.m-link').forEach(a=>a.addEventListener('click', closeMnav));
+const obs = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }}), { threshold: 0.1 });
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
