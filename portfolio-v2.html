@@ -76,24 +76,32 @@ h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -
 .fade.in { opacity: 1; transform: none; }
 
 /* ─── NAV ─────────────────────────────────────────────────── */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 76px;
-  background: rgba(244,243,239,0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 76px; transition: background .3s ease, box-shadow .3s ease; }
+.nav.scrolled { background: rgba(244,243,239,0.92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
 .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); height: 100%; display: flex; align-items: center; justify-content: space-between; }
-.nav-logo { font: 700 19px/1 var(--font-display); letter-spacing: 0.04em; color: var(--ink); }
+.nav-logo { font: 700 19px/1 var(--font-display); letter-spacing: 0.04em; color: #fff; transition: color .3s ease; }
+.nav.scrolled .nav-logo { color: var(--ink); }
 .nav-links { display: flex; align-items: center; gap: 38px; }
-.nav-link { font: 500 14px/1 var(--font-body); color: var(--ink-2); transition: color .2s ease; }
-.nav-link:hover, .nav-link.active { color: var(--slate); }
+.nav-link { font: 500 14px/1 var(--font-body); color: rgba(255,255,255,0.85); transition: color .2s ease; }
+.nav.scrolled .nav-link { color: var(--ink-2); }
+.nav-link:hover { color: #fff; }
+.nav.scrolled .nav-link:hover { color: var(--slate); }
+.nav-link.active { color: var(--slate-lt); }
+.nav.scrolled .nav-link.active { color: var(--slate); }
 .nav-right { display: flex; align-items: center; gap: 18px; }
-.nav-cta { font: 600 13px/1 var(--font-body); padding: 11px 22px; border-radius: 100px; border: 1.5px solid var(--slate-deep); color: var(--slate-deep); transition: all .25s ease; }
-.nav-cta:hover { background: var(--slate-deep); color: #fff; }
+.nav-cta { font: 600 13px/1 var(--font-body); padding: 11px 22px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.45); color: #fff; transition: all .25s ease; }
+.nav.scrolled .nav-cta { border-color: var(--slate-deep); color: var(--slate-deep); }
+.nav-cta:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.nav.scrolled .nav-cta:hover { background: var(--slate-deep); color: #fff; border-color: var(--slate-deep); }
 .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
-.hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: background .3s ease; }
+.nav.scrolled .hamburger span { background: var(--ink); }
 
 /* ─── PAGE HERO ───────────────────────────────────────────── */
-.phero { position: relative; padding: 150px 0 88px; overflow: hidden; background: var(--bg-dark); }
-.phero-bg { position: absolute; inset: 0; z-index: 0; }
-.phero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.28; }
-.phero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,23,32,0.85) 0%, rgba(14,23,32,0.55) 60%, rgba(14,23,32,0.35) 100%); }
+.phero { position: relative; padding: 150px 0 88px; overflow: hidden; background: radial-gradient(60% 85% at 12% 100%, rgba(53,89,126,0.35) 0%, transparent 60%), var(--bg-dark); }
+.phero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(90,127,163,0.20) 1px, transparent 1px); background-size: 26px 26px; }
+.phero::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(244,243,239,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(244,243,239,0.03) 1px, transparent 1px); background-size: 130px 130px; }
+.phero-bg { display: none; }
 .phero-inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
 .phero-eyebrow { color: var(--slate-lt); margin-bottom: 20px; }
 .phero h1 { font-size: clamp(40px, 5.5vw, 74px); line-height: 1.02; color: #fff; font-weight: 800; margin-bottom: 22px; max-width: 14ch; }
@@ -228,12 +236,12 @@ h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -
 <!-- ─── NAV ─────────────────────────────────────────────────── -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index-v2.html" class="nav-logo">INCAN GROUP</a>
+    <a href="index.html" class="nav-logo">INCAN GROUP</a>
     <div class="nav-links">
       <a href="active-projects-v2.html" class="nav-link">Active Projects</a>
       <a href="portfolio-v2.html" class="nav-link active">Portfolio</a>
-      <a href="index-v2.html#services" class="nav-link">What We Do</a>
-      <a href="index-v2.html#why" class="nav-link">Why Incan</a>
+      <a href="index.html#services" class="nav-link">What We Do</a>
+      <a href="index.html#why" class="nav-link">Why Incan</a>
     </div>
     <div class="nav-right">
       <a href="contact-v2.html" class="nav-cta">Contact</a>
@@ -248,7 +256,7 @@ h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -
     <span class="nav-logo">INCAN GROUP</span>
     <button class="mnav-close" id="mnavClose">&#10005;</button>
   </div>
-  <a class="m-link" href="index-v2.html">Home</a>
+  <a class="m-link" href="index.html">Home</a>
   <a class="m-link" href="active-projects-v2.html">Active Projects</a>
   <a class="m-link" href="portfolio-v2.html">Portfolio</a>
   <a class="m-link" href="contact-v2.html">Contact</a>
@@ -476,8 +484,8 @@ h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -
       </div>
       <div class="footer-col">
         <h5>Company</h5>
-        <a href="index-v2.html">Home</a>
-        <a href="index-v2.html#why">Why Incan</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#why">Why Incan</a>
         <a href="contact-v2.html">Contact</a>
       </div>
       <div class="footer-col">
@@ -498,31 +506,12 @@ h1,h2,h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -
 </footer>
 
 <script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
 // Mobile nav
 const mnav = document.getElementById('mnav');
 document.getElementById('hamburger').addEventListener('click', () => { mnav.classList.add('open'); document.body.style.overflow='hidden'; });
 function closeMnav(){ mnav.classList.remove('open'); document.body.style.overflow=''; }
-document.getElementById('mnavClose').addEventListener('click', closeMnav);
-document.querySelectorAll('.mnav a.m-link').forEach(a=>a.addEventListener('click', closeMnav));
-
-// Fade in
-const obs = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }}), { threshold: 0.12 });
-document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
-
-// Filter tabs
-const tabs = document.querySelectorAll('.filter-tab');
-const cats = document.querySelectorAll('.cat');
-tabs.forEach(tab => tab.addEventListener('click', () => {
-  tabs.forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  const f = tab.dataset.filter;
-  cats.forEach(c => c.classList.toggle('hidden', !(f === 'all' || c.dataset.category === f)));
-}));
-// Auto-filter from hash
-const h = location.hash.replace('#','');
-if (['residential','commercial','hospitality'].includes(h)) {
-  const t = document.querySelector(`[data-filter="${h}"]`); if (t) t.click();
-}
-</script>
-</body>
-</html>
+document.getElementById('mnavClose').addEventListen
